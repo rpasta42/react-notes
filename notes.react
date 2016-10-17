@@ -1,0 +1,39 @@
+npm install --save-dev -g babel-cli
+npm install -g babel-plugin-transform-react-jsx
+
+babel --plugins --global transform-react-jsx test.js
+
+=========good
+npm install --save-dev babel-cli babel-preset-latest
+npm install babel-plugin-transform-react-jsx
+npm install react react-dom
+
+babel --plugins transform-react-jsx test.js
+
+package.json
+{
+  "name": "my-project",
+  "version": "1.0.0",
+  "devDependencies": {
+    "babel-cli": "^6.0.0"
+  }
+}
+
+
+babel --plugins transform-react-jsx test.jsx > test.js; node test.js
+
+test.jsx:
+   var ReactDOM = require('react-dom');
+   var React = require('react');
+   var ReactDOMServer = require('react-dom/server');
+   [1,2,3].map(n => n + 1);
+
+   class HelloMessage extends React.Component {
+      render() {
+         return <div>Hello {this.props.name}</div>;
+      }
+   }
+   console.log(ReactDOMServer.renderToString(<HelloMessage/>);
+
+
+
