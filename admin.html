@@ -17,7 +17,8 @@
    <!-- <script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script> -->
 
    <link rel='stylesheet' href='sassautogen/admin.css'>
-
+   <link rel='stylesheet' href='assets/pe-icon7-stroke/assets/refs/style.css'>
+   <link rel='stylesheet' href='assets/pe-icon7-stroke/pe-icon-7-stroke/css/pe-icon-7-stroke.css'>
 
    <link href="assets/boot-admin/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
    <link href="assets/boot-admin/dist/css/sb-admin-2.css" rel="stylesheet">
@@ -40,6 +41,17 @@
    <!-- <script src="assets/boot-admin/data/morris-data.js"></script> -->
    <script src="assets/boot-admin/dist/js/sb-admin-2.js"></script>
 
+   <script>
+      $(function() {
+         var expanded = false;
+         $('#sidebar-admin-dropdown-toggle').click(function() {
+            /*$(this).attr('area-expanded', expanded);
+            $(this).setClass('');
+            expanded = !expanded;*/
+            //$(this).addClass('collapsing');
+         });
+      });
+   </script>
 </body>
 
 </html>
