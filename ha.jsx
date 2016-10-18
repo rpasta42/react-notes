@@ -1,25 +1,71 @@
-var Hello = React.createClass({
-  displayName: 'Hello bye',
-  render: function() {
-    return React.createElement("div", null, "Hello ", this.props.name);
-  }
-});
+/*ReactDOM.renderComponent(
+   <h1>Hello, world!</h1>,
+   document.getElementById('example')
+);*/
 
-ReactDOM.render(
+/*ReactDOM.render(
   React.createElement(Hello, {name: "World"}),
   document.getElementById('container')
-);
-
+);*/
 
 ReactDOM.render(
    <h1>Hello helo, world!</h1>,
    document.getElementById('example')
 );
 
-/*ReactDOM.renderComponent(
-   <h1>Hello, world!</h1>,
-   document.getElementById('example')
-);*/
+class TodoApp extends React.Component {
+   constructor(props) {
+      super(props);
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.state = {items: [], text: ''};
+   }
+
+   render() {
+      return (
+         <div>
+            <h3>Todo</h3>
+            <TodoList items={this.state.items} />
+            <form onSubmit={this.handleSubmit}>
+               <input onChange={this.handleChange} value={this.state.text}/>
+               <button>{'Add #' + (this.state.items.length + 1)}</button>
+            </form>
+         </div>
+      );
+   }
+
+   handleChange(e) {
+      this.setState({text: e.target.value});
+   }
+
+   handleSubmit(e) {
+      e.preventDefault();
+      var newItem = {
+         text: this.state.text,
+         id: Date.now()
+      };
+      this.setState((prevState) => ({
+         items:   prevState.items.concat(newItem),
+         text:    ''
+      }));
+   }
+}
+
+
+class TodoList extends React.Component {
+   render() {
+      return (
+         <ul>
+            {this.props.items.map(item => (
+               <li key={item.id}>{item.text}</li>
+            ))}
+         </ul>
+      );
+   }
+}
+
+ReactDOM.render(<TodoApp />, document.getElementById('container'));
+
 
 
 

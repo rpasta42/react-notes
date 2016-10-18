@@ -1,0 +1,23 @@
+$body-marg-pad: 0;
+
+body, html {
+   padding: $body-marg-pad;
+   margin:  $body-marg-pad;
+}
+
+@mixin top-left {
+   position: absolute;
+   left: 0;
+   top:  0;
+}
+
+#sidepanel {
+   @include top-left();
+   background-color: #2CB0E5;
+   width: 19em;
+   height: 100%;
+
+   img {
+      width: 100%;
+   }
+}
