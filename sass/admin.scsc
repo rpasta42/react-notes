@@ -54,6 +54,21 @@ body, html {
 #side-menu li a {
    width:   100%;
 }
+.panel-body {
+   height:  100%;
+   bottom-padding:0;
+}
+
+#background {
+   position:   absolute;
+   width:      100%;
+   height:     100%;
+   bottom:     0;
+   top:        0;
+   opacity:    0.1;
+   pointer-events:none;
+   z-index:    5;
+}
 
 #kk-sidepanel {
    @include top-left();
@@ -61,9 +76,10 @@ body, html {
    /*width: 19em;*/
    width:   $sidepanel-width+2px;
    height: 100%;
-   bottom-margin: 0;
-   background-image: url("assets/debt-freedom.jpg");
-   opacity: 0.5;
+   margin-bottom: 0;
+
+
+   //background-image: url("assets/debt-freedom.jpg");
 
    li {
       border: 0;

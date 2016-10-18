@@ -14,6 +14,9 @@ class BPanel extends React.Component {
    render() {
       return (
          <div id={ this.props.id } className="panel panel-default">
+            <img id='background' src='assets/debt-freedom.jpg' />
+
+
             <div className="panel-body">
                { this.props.body }
             </div>
