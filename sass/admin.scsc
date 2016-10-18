@@ -1,4 +1,5 @@
 $body-marg-pad: 0;
+$sidepanel-bg-color: #2CB0E5;
 
 body, html {
    padding: $body-marg-pad;
@@ -11,13 +12,35 @@ body, html {
    top:  0;
 }
 
-#sidepanel {
+
+@mixin menu-color {
+   background-color: $sidepanel-bg-color;
+}
+
+#kk-sidepanel {
    @include top-left();
-   background-color: #2CB0E5;
+   @include menu-color();
    width: 19em;
    height: 100%;
 
    img {
       width: 100%;
    }
+   li {
+      a {
+         @include menu-color();
+         color: white;
+      }
+      a:hover {
+         background-color: #4BC2EA;
+      }
+      @include menu-color();
+
+   }
+}
+
+
+#mypanel {
+   background-color: $sidepanel-bg-color;
+
 }
