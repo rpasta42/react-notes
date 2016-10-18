@@ -1,5 +1,20 @@
 $body-marg-pad: 0;
 $sidepanel-bg-color: #2CB0E5;
+$sidepanel-width: 330px;
+
+body {
+   font-size:     150%;
+   li i {
+      font-size:  250% !important;
+      width:      48.2px;
+      height:     37px;
+   }
+   #search-glass {
+      font-size:  100% !important;
+      width:      13px;
+      height:     14px;
+   }
+}
 
 body, html {
    padding: $body-marg-pad;
@@ -16,20 +31,71 @@ body, html {
 @mixin menu-color {
    background-color: $sidepanel-bg-color;
 }
+@mixin center-align {
+   position:      absolute;
+   left:          50%;
+   transform:     translateX(-50%);
+}
+@mixin vertical-align {
+   position:      absolute;
+   top:           50%;
+   transform:     translateY(-50%);
+}
+@mixin both-align {
+   @include center-align();
+   @include vertical-align();
+
+   transform:     translateX(-50%) translateY(-50%);
+}
+
+#mypanel {
+   left:    0;
+}
+#side-menu li a {
+   width:   100%;
+}
 
 #kk-sidepanel {
    @include top-left();
    @include menu-color();
-   width: 19em;
+   /*width: 19em;*/
+   width:   $sidepanel-width+2px;
    height: 100%;
+   bottom-margin: 0;
+   background-image: url("assets/debt-freedom.jpg");
+   opacity: 0.5;
 
-   img {
-      width: 100%;
+   li {
+      border: 0;
+      a {
+         border-radius: 5px;
+         margin-bottom: 3px;
+      }
    }
+
+   .caret {
+      position:   absolute;
+      right:      15px;
+      top:        50%;
+      transform:  translateY(-50%);
+   }
+
+   #sidebar-admin-dropdown {
+      background-color: #59c8ed;
+      li, a {
+         background-color: #59c8ed;
+      }
+   }
+
+
    li {
       a {
          @include menu-color();
          color: white;
+         span {
+            @include vertical-align();
+            padding-left:     10px;
+         }
       }
       a:hover {
          background-color: #4BC2EA;
@@ -39,8 +105,18 @@ body, html {
    }
 }
 
+#imgCont {
+   width:   100%;
+   height:  100px;
+}
+img {
+   @include center-align();
+   width: 75%;
+   top:  -15px;
+   z-index:    55;
+}
 
 #mypanel {
    background-color: $sidepanel-bg-color;
-
+   width: $sidepanel-width;
 }

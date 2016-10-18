@@ -35,7 +35,7 @@ class SidePanel extends React.Component {
    }
 
    render() {
-      var pageimg = <img src={this.topImgUrl }/>;
+      //var pageimg = <div id='imgCont'><img src={this.topImgUrl }/></div>;
 
       var sidepanelBody = getMenuItems();
 
@@ -57,7 +57,8 @@ class MenuItemLink extends React.Component { //<MenuItemLink onclick='blah' side
       return (
          <li>
             <a href='#' onClick={this.props.onClick}>
-               <FaIcon name={ this.props.sideImg } /> { this.props.label }
+               <FaIcon name={ this.props.sideImg } />
+               <span>{ this.props.label }</span>
             </a>
          </li>
       );
@@ -73,19 +74,28 @@ class FoldingMenu extends React.Component {
       this.label = this.props.label;
       this.subItems = this.props.subItems; //[{'key':'0', 'link':'https://blah', 'label':'blah'}]
 
-      this.kkClassName = ' ';
-      this.expanded = false;
+      this.handleChange = this.handleChange.bind(this);
+
+      this.state = {
+         'kkclass' : 'collapsed',
+         'expanded': false,
+         'kkclass2' : 'collapseWhite collapse'
+      };
    }
    componentDidMount() {
-      var e = this.expanded;
-      this.expanded = !e;
+      /*var e = this.expanded;
+      this.expanded = !e;*/
    }
 
-   handleChange() {
-      console.log('bye');
-      if (this.kkClassName.length < 1) {
-         this.kkClassName = 'collapseWhite collapse';
+   handleChange(e) {
+      var c = 'collapseWhite collapse';
+      if (this.state.expanded) {
+         this.setState({'kkclass' : 'collapsed', 'expanded':false, 'kkclass2':c });
       }
+      else
+         this.setState({'kkclass' : '', 'expanded':true, 'kkclass2':('in '+c) });
+
+      console.log(this.state.expanded);
    }
 
    render() {
@@ -93,14 +103,12 @@ class FoldingMenu extends React.Component {
 
       return (
          <li>
-            <a data-toggle='collapse' onClick={()=>(this.handleChange(this.kkClassName)} className={this.kkClassName} href={'#' + this.id} id={'#' + this.id + 'toggle'} aria-expanded={this.exnapded} aria-controls={'#' + this.id} >
+            <a data-toggle='collapse' onClick={this.handleChange} className={this.state.kkclass} href={'#' + this.id} id={'#' + this.id + 'toggle'} aria-expanded={this.state.expanded} aria-controls={'#' + this.id} >
                <i className={this.sideImg}> </i>
-               <p>
                   {this.label}
-                  <b className='caret'></b>
-               </p>
+                  <b style={ {float:'right'} } className='caret'></b>
             </a>
-            <div id={this.id} className='collapseWhite collapse' style={ {height:'5px'} }>
+            <div id={this.id} aria-expanded={this.state.expanded} className={this.state.kkclass2} style={ {height:'5px'} }>
                <ul className='nav'>
                   {this.subItems.map(item => (
                      <li key={item.key}><a href={item.link}>{item.label}</a></li>
@@ -116,14 +124,13 @@ class SidePanelNav extends React.Component {
    constructor(props) {
       super(props);
       this.topImgUrl = this.props.topImgUrl;
-      this.topMenuImg = <img src={this.topImgUrl} />;
-
 
       this.adminId = 'sidebar-admin-dropdown';
       this.adminImg = 'pe-7s-gleam';
       this.adminItems = [
-         { 'link':'blah', 'label':'hey'},
-         { 'link':'no', 'label':'way'}
+         { 'link':'blah', 'label':'Manage Users'}, //have section "awaiting moderation" and "groups"
+         { 'link':'no', 'label':'Manage Report Permissions'},
+         { 'link':'no', 'label':'User Permissions'}
       ];
 
       var i = 0;
@@ -149,13 +156,13 @@ class SidePanelNav extends React.Component {
       this.items.push({
          onclick : () => alert('bye'),
          sideImg : this.sideImg,
-         label : 'blah',
+         label : 'REPORTS',
          key : i++
       });
       this.items.push({
          onclick  : () => alert('hi'),
          sideImg  :'fa-dashboard fa fa-fw',
-         label    : 'Dashboard',
+         label    : 'DASHBOARD',
          key      : i++
       });
 
@@ -176,9 +183,20 @@ class SidePanelNav extends React.Component {
 
       return (
          <div id='mypanel' className='navbar-default sidebar' role='navigation'>
+            <div id='imgCont'> <img src={this.topImgUrl} /> </div>
+
             <div className='sidebar-nav navbar-collapse'>
                <ul className='nav in' id='side-menu'>
-                  <li className='sidebar-search'>hi</li>
+                  <li className='sidebar-search'>
+                     <div className="input-group custom-search-form">
+                        <input className="form-control" placeholder="Search..." type="text" />
+                        <span className="input-group-btn">
+                           <button className="btn btn-default" type="button">
+                              <i className="fa fa-search" id='search-glass'></i>
+                           </button>
+                        </span>
+                     </div>
+                  </li>
 
                   <FoldingMenu id={this.adminId} sideImg={this.adminImg} label='ADMIN' subItems={this.adminItems}>
                   </FoldingMenu>
@@ -203,7 +221,7 @@ class SidePanelNav extends React.Component {
 
 var ex = document.getElementById('example');
 var top_img_url = 'assets/logo-bc-white.png';
-ReactDOM.render(<SidePanelNav topImgUrl='{top_img_url}'></SidePanelNav>, ex);
+ReactDOM.render(<SidePanelNav topImgUrl={top_img_url}></SidePanelNav>, ex);
 
 {/*var y = <div color='blue'>bye</div>;
 ReactDOM.render(y, ex);
